@@ -8,7 +8,6 @@ import Files from './models/fileModel.js'
 import pdfTemplate from './documents/index.js'
 import path from 'path';
 
-const port =  3001
 const app = express()
 
 const mongodbUri = config.MONGODB_URI
@@ -112,5 +111,6 @@ app.get('/fetch-pdf', (req, res) => {
 })
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log(`Server started at port ${port}`)
+    console.log(`Server started at port ${process.env.PORT}`)
+    
 })
