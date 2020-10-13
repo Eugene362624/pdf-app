@@ -111,6 +111,6 @@ app.get('/fetch-pdf', (req, res) => {
   res.sendFile(`${__dirname}/${fileName}.pdf`)
 })
 
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(`Server started at port ${port}`)
 })

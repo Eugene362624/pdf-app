@@ -1,0 +1,14 @@
+{
+  "name": "pdf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "backend": "nodemon backend/server.js",
+    "frontend": "npm run frontend/src/index.js",
+    "dev": "concorrently \"npm run backend\" \"npm run frontend\""
+  },
+  "author": "",
+  "license": "ISC"
+}
