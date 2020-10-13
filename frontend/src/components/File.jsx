@@ -23,7 +23,7 @@ const File = (props) => {
     let [timestamp, setTimestamp] = useState('')
 
     useEffect(() => {
-      axios.get(`/files/${id}`)
+      axios.get(`https://medvedevs-pdf-app.herokuapp.com/files/${id}`)
       .then(response => 
        setFile(response.data)
       )
@@ -31,7 +31,7 @@ const File = (props) => {
 
     const [files, setFiles] = useState([])
     useEffect(() => {
-      axios.get('/files/sync')
+      axios.get('https://medvedevs-pdf-app.herokuapp.com/files/sync')
       .then(response => {
       setFiles(response.data)
       })
@@ -40,7 +40,7 @@ const File = (props) => {
 
 
     const infoPut = () => {
-      axios.put(`/files/${id}/update`, {
+      axios.put(`https://medvedevs-pdf-app.herokuapp.com/files/${id}/update`, {
         name: `${name.length > 0 ? name : file.name}`,
         surname: `${surname.length > 0 ? surname : file.surname}`,
         age: `${age.length > 0 ? age : file.age }`,
@@ -55,7 +55,7 @@ const File = (props) => {
   }
 
     const createAndDownloadPdf = () => {
-      axios.post('/create-pdf', {
+      axios.post('https://medvedevs-pdf-app.herokuapp.com/create-pdf', {
         name: `${name.length > 0 ? name : file.name}`,
         surname: `${surname.length > 0 ? surname : file.surname}`,
         age: `${age.length > 0 ? age : file.age }`,
@@ -76,7 +76,7 @@ const File = (props) => {
     }
 
     const CreateFile = () => {
-      axios.post(`/files/new`, {
+      axios.post(`https://medvedevs-pdf-app.herokuapp.com/files/new`, {
         name: `${name.length > 0 ? name : file.name}`,
         surname: `${surname.length > 0 ? surname : file.surname}`,
         age: `${age.length > 0 ? age : file.age }`,
@@ -88,12 +88,12 @@ const File = (props) => {
         model: `${model.length > 0 ? model : file.model}`,
         timestamp: `${currentDate}`
     }).then(() => alert(`${name} added to the database`))
-    .then(() => props.history.push('/files'))
+    .then(() => props.history.push('https://medvedevs-pdf-app.herokuapp.com/files'))
     }
 
     const deleteFile = () => {
-      axios.delete(`/files/${id}/delete`)
-      .then(() => props.history.push('/files'))
+      axios.delete(`https://medvedevs-pdf-app.herokuapp.com/files/${id}/delete`)
+      .then(() => props.history.push('https://medvedevs-pdf-app.herokuapp.com/files'))
     }
 
     return(
