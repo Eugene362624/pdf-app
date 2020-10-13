@@ -24,11 +24,11 @@ app.use(cors())
 app.use(parser.urlencoded({extended: true}))
 app.use(parser.json())
 
-app.get('https://medvedevs-pdf-app.herokuapp.com/', (req, res) => {
+app.get('/', (req, res) => {
     res.status(200).send('hello world')
 })
 
-app.get('https://medvedevs-pdf-app.herokuapp.com/files/sync',async (req, res) => {
+app.get('/files/sync',async (req, res) => {
     await Files.find((e, data) => {
         if(e) {
             res.status(500).send(e)
@@ -38,7 +38,7 @@ app.get('https://medvedevs-pdf-app.herokuapp.com/files/sync',async (req, res) =>
     })
 })
 
-app.get('https://medvedevs-pdf-app.herokuapp.com/files/:id', async (req, res) => {
+app.get('/files/:id', async (req, res) => {
     const file = await Files.findOne({ _id: req.params.id })
     if (file) {
       res.send(file)
@@ -47,7 +47,7 @@ app.get('https://medvedevs-pdf-app.herokuapp.com/files/:id', async (req, res) =>
     }
   })
 
-app.put('https://medvedevs-pdf-app.herokuapp.com/files/:id/update', async (req, res) => {
+app.put('/files/:id/update', async (req, res) => {
     const fileId = req.params.id
     const file = await Files.findById(fileId)
     if (file) {
@@ -71,7 +71,7 @@ app.put('https://medvedevs-pdf-app.herokuapp.com/files/:id/update', async (req, 
     return res.status(500).send({ message: ' error in updating file.' });
   })
 
-app.delete('https://medvedevs-pdf-app.herokuapp.com/files/:id/delete', async (req, res) => {
+app.delete('/files/:id/delete', async (req, res) => {
     const deletedFile = await Files.findById({ _id: req.params.id });
     if (deletedFile) {
       await deletedFile.remove()
@@ -81,7 +81,7 @@ app.delete('https://medvedevs-pdf-app.herokuapp.com/files/:id/delete', async (re
     }
   })
 
-app.post('https://medvedevs-pdf-app.herokuapp.com/files/new', (req, res) => {
+app.post('/files/new', (req, res) => {
     const dbFile = req.body
 
     Files.create(dbFile, (e, data) => {
@@ -94,7 +94,7 @@ app.post('https://medvedevs-pdf-app.herokuapp.com/files/new', (req, res) => {
 })
 
 let fileName 
-app.post('https://medvedevs-pdf-app.herokuapp.com/create-pdf', (req, res) => {
+app.post('/create-pdf', (req, res) => {
   fileName = req.body.name
   console.log(fileName)
   pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
@@ -106,11 +106,11 @@ app.post('https://medvedevs-pdf-app.herokuapp.com/create-pdf', (req, res) => {
   })
 })
 
-app.get('https://medvedevs-pdf-app.herokuapp.com/fetch-pdf', (req, res) => {
+app.get('/fetch-pdf', (req, res) => {
   res.sendFile(`${__dirname}/${fileName}.pdf`)
 })
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 3001, () => {
     console.log(`Server started at port ${process.env.PORT}`)
     
 })

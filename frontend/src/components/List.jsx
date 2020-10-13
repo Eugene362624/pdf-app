@@ -5,7 +5,7 @@ import axios from 'axios'
 const List = () => {
     const [files, setFiles] = useState([])
     useEffect(() => {
-        axios.get('https://medvedevs-pdf-app.herokuapp.com/files/sync')
+        axios.get('/files/sync')
         .then(response => {
         setFiles(response.data)
         })

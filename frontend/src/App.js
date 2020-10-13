@@ -16,7 +16,6 @@ function App() {
           <List />
           <Link to='/files/create'><button>Create</button></Link>
         </main>
-        <Route path='/'/>
         <Route path='/files/:id' component={FileC}/>
       </div>
     </BrowserRouter> 
