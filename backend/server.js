@@ -23,6 +23,14 @@ app.use(express.json())
 app.use(cors())
 app.use(parser.urlencoded({extended: true}))
 app.use(parser.json())
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', 'https://5f876937d458db0fb5dde605--medvedev-pdf.netlify.app/')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  next()
+})
+
 
 app.get('/', (req, res) => {
     res.status(200).send('hello world')
@@ -102,7 +110,6 @@ app.post('/files/new', (req, res) => {
 
 let fileName 
 app.post('/create-pdf', (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*')
   fileName = req.body.name
   pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
     if (e) {
@@ -114,9 +121,6 @@ app.post('/create-pdf', (req, res) => {
 })
 
 app.get('/fetch-pdf', (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*')
-  res.set('Access-Control-Allow-Methods', 'GET, OPTIONS')
-  res.set('Access-Control-Allow-Headers', 'Content-Type')
   res.sendFile(`${__dirname}/${fileName}.pdf`)
 })
 
