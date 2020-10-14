@@ -52,9 +52,9 @@ const File = (props) => {
         timestamp: `${currentDate}`
     })
   }
-  console.log(name)
-    const createAndDownloadPdf = async () => {
-      await axios.post('https://medvedevs-pdf-app.herokuapp.com/create-pdf', {
+
+    const createAndDownloadPdf = () => {
+      axios.post('https://medvedevs-pdf-app.herokuapp.com/create-pdf', {
         name: `${name.length > 0 ? name : file.name}`,
         surname: `${surname.length > 0 ? surname : file.surname}`,
         age: `${age.length > 0 ? age : file.age }`,
@@ -66,14 +66,15 @@ const File = (props) => {
         model: `${model.length > 0 ? model : file.model}`,
         timestamp: `${currentDate}`
     })
-    .then(() => console.log(file.name))
     .then(() => axios.get('https://medvedevs-pdf-app.herokuapp.com/fetch-pdf', {responseType: 'blob'}))
     .then((res) => {
       const pdfBlob = new Blob([res.data], {type: 'application/pdf' })
       saveAs(pdfBlob, 'newPdf.pdf')
     })
     .then(() => props.history.push('https://medvedevs-pdf-app.herokuapp.com/files'))
-    }
+    .catch(error => {
+      console.log(error)})
+  }
 
     const CreateFile = () => {
       axios.post(`https://medvedevs-pdf-app.herokuapp.com/files/new`, {
@@ -89,6 +90,8 @@ const File = (props) => {
         timestamp: `${currentDate}`
     }).then(() => alert(`${name} added to the database`))
     .then(() => props.history.push('/files'))
+    .catch(error => {
+      console.log(error.response)})
     }
 
     const deleteFile = () => {
