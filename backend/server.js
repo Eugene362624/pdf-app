@@ -36,6 +36,7 @@ app.get('/files/sync',async (req, res) => {
             res.status(200).send(data)
         }
     })
+    console.log(res)
 })
 
 app.get('/files/:id', async (req, res) => {
@@ -96,7 +97,6 @@ app.post('/files/new', (req, res) => {
 let fileName 
 app.post('/create-pdf', (req, res) => {
   fileName = req.body.name
-  console.log(fileName)
   pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
     if (e) {
       res.send(Promise.reject())

@@ -5,7 +5,7 @@ import axios from 'axios'
 const List = () => {
     const [files, setFiles] = useState([])
     useEffect(() => {
-        axios.get('/files/sync')
+        axios.get('https://medvedevs-pdf-app.herokuapp.com/files/sync')
         .then(response => {
         setFiles(response.data)
         })
@@ -15,7 +15,7 @@ const List = () => {
         <div className='searchList'>
             { 
               files.map(file => 
-              <Link key={`${file.name}_${file._id}`} to={`/files/${file._id}`}>
+              <Link key={`${file.name}_${file._id}`} to={`https://medvedevs-pdf-app.herokuapp.com/files/${file._id}`}>
                 <div className={`searchList__element`}>
                   <h4>{file.name}</h4>
                   <small>{file.timestamp}</small>
