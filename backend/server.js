@@ -24,7 +24,7 @@ app.use(cors())
 app.use(parser.urlencoded({extended: true}))
 app.use(parser.json())
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://5f876937d458db0fb5dde605--medvedev-pdf.netlify.app/')
+  res.setHeader('Access-Control-Allow-Origin', 'https://medvedevs-pdf-app.herokuapp.com/')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
   res.setHeader('Access-Control-Allow-Credentials', true)
