@@ -24,7 +24,7 @@ app.use(cors())
 app.use(parser.urlencoded({extended: true}))
 app.use(parser.json())
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://medvedevs-pdf-app.herokuapp.com/')
+  res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
   res.setHeader('Access-Control-Allow-Credentials', true)
@@ -37,9 +37,6 @@ app.get('/', (req, res) => {
 })
 
 app.get('/files/sync',async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*')
-  res.set('Access-Control-Allow-Methods', 'GET, OPTIONS')
-  res.set('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
     await Files.find((e, data) => {
         if(e) {
             res.status(500).send(e)
