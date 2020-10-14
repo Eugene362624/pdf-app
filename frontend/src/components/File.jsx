@@ -53,8 +53,8 @@ const File = (props) => {
     })
   }
 
-    const createAndDownloadPdf = () => {
-      axios.post('https://medvedevs-pdf-app.herokuapp.com/create-pdf', {
+    const createAndDownloadPdf = async () => {
+      await axios.post('https://medvedevs-pdf-app.herokuapp.com/create-pdf', {
         name: `${name.length > 0 ? name : file.name}`,
         surname: `${surname.length > 0 ? surname : file.surname}`,
         age: `${age.length > 0 ? age : file.age }`,
@@ -66,7 +66,8 @@ const File = (props) => {
         model: `${model.length > 0 ? model : file.model}`,
         timestamp: `${currentDate}`
     })
-    .then(() => axios.get('fetch-pdf', {responseType: 'blob'}))
+    .catch(e => console.log(e.reason))
+    .then(() => axios.get('https://medvedevs-pdf-app.herokuapp.com/fetch-pdf', {responseType: 'blob'}))
     .then((res) => {
       const pdfBlob = new Blob([res.data], {type: 'application/pdf' })
       saveAs(pdfBlob, 'newPdf.pdf')
@@ -175,7 +176,7 @@ const File = (props) => {
                   </Link>
                 }
                 
-                <Link to={'/fetch-pdf'}>
+                <Link to={`/files/${id}`}>
                   <button onClick={createAndDownloadPdf}>
                     Get PDF
                   </button>

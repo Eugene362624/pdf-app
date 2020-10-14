@@ -96,6 +96,7 @@ app.post('/files/new', (req, res) => {
 
 let fileName 
 app.post('/create-pdf', (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*')
   fileName = req.body.name
   pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
     if (e) {
@@ -107,6 +108,7 @@ app.post('/create-pdf', (req, res) => {
 })
 
 app.get('/fetch-pdf', (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*')
   res.sendFile(`${__dirname}/${fileName}.pdf`)
 })
 

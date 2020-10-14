@@ -4,6 +4,7 @@ import axios from 'axios'
 
 const List = () => {
     const [files, setFiles] = useState([])
+    const [id, setId] = useState('')
     useEffect(() => {
         axios.get('https://medvedevs-pdf-app.herokuapp.com/files/sync')
         .then(response => {
@@ -11,15 +12,15 @@ const List = () => {
         })
     }, [])
 
-    const getFile = () => {
-      axios.get('https://medvedevs-pdf-app.herokuapp.com/files/:id')
-    }
+    // const getFile = () => {
+    //   axios.get(`https://medvedevs-pdf-app.herokuapp.com/files/${id}`)
+    // }
    
   return(
       <div className='searchList'>
           { 
             files.map(file => 
-            <Link key={`${file.name}_${file._id}`} to={`/files/${file._id}`} onClick={getFile} >
+            <Link key={`${file.name}_${file._id}`} to={`/files/${file._id}`}  >
               <div className={`searchList__element`}>
                 <h4>{file.name}</h4>
                 <small>{file.timestamp}</small>
