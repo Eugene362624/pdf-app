@@ -162,7 +162,6 @@ const File = (props) => {
                 />
               <div className='documentInfo__buttons'>
                 {
-                  console.log(props)}{
                   props.location.pathname == '/files/create' ? 
                   <Link to={`/files/new`}>
                     <button onClick={CreateFile}>

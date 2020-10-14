@@ -29,6 +29,9 @@ app.get('/', (req, res) => {
 })
 
 app.get('/files/sync',async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*')
+  res.set('Access-Control-Allow-Methods', 'GET, OPTIONS')
+  res.set('Access-Control-Allow-Headers', 'Content-Type')
     await Files.find((e, data) => {
         if(e) {
             res.status(500).send(e)
@@ -40,6 +43,9 @@ app.get('/files/sync',async (req, res) => {
 })
 
 app.get('/files/:id', async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*')
+  res.set('Access-Control-Allow-Methods', 'GET, OPTIONS')
+  res.set('Access-Control-Allow-Headers', 'Content-Type')
     const file = await Files.findOne({ _id: req.params.id })
     if (file) {
       res.send(file)
