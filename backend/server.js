@@ -104,7 +104,6 @@ app.post('/files/new', (req, res) => {
 
 let fileName 
 app.post('/create-pdf', (req, res) => {
-  res.setHeader('Access-Control-Allow-Headers', 'application/json, text/plain, */*')
   fileName = req.body.name
   pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
     if (e) {
@@ -113,10 +112,16 @@ app.post('/create-pdf', (req, res) => {
     
     res.send(Promise.resolve())
   })
+  .catch((error) => {
+    console.warn('Not good man :(');
+})
 })
 
 app.get('/fetch-pdf', (req, res) => {
   res.sendFile(`${__dirname}/${fileName}.pdf`)
+  .catch((error) => {
+    console.warn('Not good man :(');
+})
 })
 
 app.listen(process.env.PORT || 3001, () => {
