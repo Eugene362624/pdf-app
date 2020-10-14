@@ -10,20 +10,24 @@ const List = () => {
         setFiles(response.data)
         })
     }, [])
-    
-    return(
-        <div className='searchList'>
-            { 
-              files.map(file => 
-              <Link key={`${file.name}_${file._id}`} to={`https://medvedevs-pdf-app.herokuapp.com/files/${file._id}`}>
-                <div className={`searchList__element`}>
-                  <h4>{file.name}</h4>
-                  <small>{file.timestamp}</small>
-                </div>
-              </Link>)
-            } 
-        </div>
-    )
+
+    const getFile = () => {
+      axios.get('https://medvedevs-pdf-app.herokuapp.com/files/:id')
+    }
+   
+  return(
+      <div className='searchList'>
+          { 
+            files.map(file => 
+            <Link key={`${file.name}_${file._id}`} to={`/files/${file._id}`} onClick={getFile} >
+              <div className={`searchList__element`}>
+                <h4>{file.name}</h4>
+                <small>{file.timestamp}</small>
+              </div>
+            </Link>)
+          }
+      </div>
+  )
 }
 
 export default List
