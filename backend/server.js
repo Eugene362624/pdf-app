@@ -104,7 +104,7 @@ app.post('/files/new', (req, res) => {
 
 let fileName 
 app.post('/create-pdf', (req, res) => {
-  res.setHeader('Access-Control-Allow-Headers', 'application/json, text/plain, */*')
+  req.setHeader('Access-Control-Allow-Headers', 'application/json, text/plain, */*')
   fileName = req.body.name
   pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
     if (e) {
