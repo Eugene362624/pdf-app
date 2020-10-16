@@ -66,7 +66,9 @@ const File = (props) => {
         model: `${model.length > 0 ? model : file.model}`,
         timestamp: `${currentDate}`
     }, {headers:{"Content-Type" : "application/json", "Access-Control-Allow-Origin": "*"}})
-    .then(() => axios.get('https://medvedevs-pdf-app.herokuapp.com/fetch-pdf', {responseType: 'blob'}))
+    .then(() => axios.get('https://medvedevs-pdf-app.herokuapp.com/fetch-pdf', 
+    {responseType: 'blob'}, 
+    {headers:{"Content-Type" : "application/json", "Access-Control-Allow-Origin": "*"}}))
     .then((res) => {
       const pdfBlob = new Blob([res.data], {type: 'application/pdf' })
       saveAs(pdfBlob, 'newPdf.pdf')
