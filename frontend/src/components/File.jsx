@@ -69,9 +69,13 @@ const File = (props) => {
     }, {headers:{"Content-Type" : "application/json", "Access-Control-Allow-Origin": "*"}})
     .then(() => axios.get('https://medvedevs-pdf-app.herokuapp.com/fetch-pdf', 
     {
-      responseType: 'arraybuffer',
+      responseType: 'blob',
       headers: {
-        'Accept': 'application/pdf'
+        'Accept': 'application/pdf',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+        'Access-Control-Allow-Headers': '*',
+
     }})
     )
     .then((res) => {
