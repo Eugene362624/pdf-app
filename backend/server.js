@@ -101,37 +101,18 @@ app.post('/files/new', (req, res) => {
     })
 })
 
-let fileName 
-app.post('/create-pdf', async (req, res) => {
-  fileName = req.body.name
-  console.log(req.body.name)
-  await pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
-    if (e) {
-      res.send(Promise.reject())
-    }
-    
-    res.send(Promise.resolve())
-  }) 
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
-  res.setHeader('Access-Control-Allow-Headers', '*')
-  res.setHeader('Access-Control-Allow-Credentials', true)
-  
-  .catch((error) => {
-    console.log(`error in creating: ${error}`)
-  
-})
-  console.log(fileName)
-})
+app.post('/create-pdf', (req, res) => {
+  pdf.create(pdfTemplate(req.body), {}).toFile('result.pdf', (err) => {
+      if(err) {
+          res.send(Promise.reject());
+      }
 
-app.get('/fetch-pdf', async (req, res) => {
-  res.sendFile(`${__dirname}/${fileName}.pdf`)
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
-  res.setHeader('Access-Control-Allow-Headers', '*')
-  res.setHeader('Access-Control-Allow-Credentials', true)
-  .catch ((error) =>
-    console.log('error:' +error))
+      res.send(Promise.resolve());
+  });
+});
+
+app.get('/fetch-pdf', (req, res) => {
+  res.sendFile(`${__dirname}/result.pdf`)
 })
 
 app.listen(process.env.PORT || 3001, () => {
