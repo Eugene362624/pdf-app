@@ -65,12 +65,12 @@ const File = (props) => {
         group: `${group.length > 0 ? group : file.group}`,
         model: `${model.length > 0 ? model : file.model}`,
         timestamp: `${currentDate}`
+    }, {headers:{"Content-Type" : "application/json"}})
+    .then(() => axios.get('https://medvedevs-pdf-app.herokuapp.com/fetch-pdf', {responseType: 'blob'}))
+    .then((res) => {
+      const pdfBlob = new Blob([res.data], {type: 'application/pdf' })
+      saveAs(pdfBlob, 'newPdf.pdf')
     })
-    // .then(() => axios.get('https://medvedevs-pdf-app.herokuapp.com/fetch-pdf', {responseType: 'blob'}))
-    // .then((res) => {
-    //   const pdfBlob = new Blob([res.data], {type: 'application/pdf' })
-    //   saveAs(pdfBlob, 'newPdf.pdf')
-    // })
     .catch(error => {
       console.log(error)})
   }
