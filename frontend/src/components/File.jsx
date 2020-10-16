@@ -55,17 +55,17 @@ const File = (props) => {
 
     const createAndDownloadPdf = async () => {
        await axios.post('https://medvedevs-pdf-app.herokuapp.com/create-pdf', {
-        name: `1`,
-        surname: `1`,
-        age: `1`,
-        color: `1`,
-        dogName: `1`,
-        momName: `1`,
-        dadName: `1`,
-        group: `1`,
-        model: `1`,
-        timestamp: `1`
-    }, {headers:{"Content-Type" : "application/json"}})
+        name: `${name.length > 0 ? name : file.name}`,
+        surname: `${surname.length > 0 ? surname : file.surname}`,
+        age: `${age.length > 0 ? age : file.age }`,
+        color: `${color.length > 0 ? color : file.color}`,
+        dogName: `${dogName.length > 0 ? dogName : file.dogName}`,
+        momName: `${momName.length > 0 ? momName : file.momName}`,
+        dadName: `${dadName.length > 0 ? dadName : file.dadName}`,
+        group: `${group.length > 0 ? group : file.group}`,
+        model: `${model.length > 0 ? model : file.model}`,
+        timestamp: `${currentDate}`
+    }, {headers:{"Content-Type" : "application/json", "Access-Control-Allow-Origin": "*"}})
     .then(() => axios.get('https://medvedevs-pdf-app.herokuapp.com/fetch-pdf', {responseType: 'blob'}))
     .then((res) => {
       const pdfBlob = new Blob([res.data], {type: 'application/pdf' })

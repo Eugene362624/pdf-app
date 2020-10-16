@@ -113,9 +113,6 @@ app.post('/create-pdf', (req, res) => {
     
     res.send(Promise.resolve())
   })
-  .catch((error) => {
-    console.warn('Not good man :(');
-})
 })
 
 app.get('/fetch-pdf', (req, res) => {
