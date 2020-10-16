@@ -123,14 +123,16 @@ app.post('/create-pdf', async (req, res) => {
 })
 
 app.get('/fetch-pdf', (req, res) => {
+  try {
+    
   res.sendFile(`${__dirname}/${fileName}.pdf`)
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
   res.setHeader('Access-Control-Allow-Headers', '*')
   res.setHeader('Access-Control-Allow-Credentials', true)
-  .catch((error) => {
-    console.log(`error: ${error}`);
-})
+  } catch (error) {
+    console.log(`error: ${error}`)
+  }
 })
 
 app.listen(process.env.PORT || 3001, () => {
