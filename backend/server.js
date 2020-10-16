@@ -118,13 +118,14 @@ app.post('/create-pdf', async (req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', true)
   })
   .catch((error) => {
-    console.log(`error in creating: ${error}`);
+    console.log(`error in creating: ${error}`)
+  
 })
+  console.log(fileName)
 })
 
 app.get('/fetch-pdf', (req, res) => {
   try {
-    
   res.sendFile(`${__dirname}/${fileName}.pdf`)
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
