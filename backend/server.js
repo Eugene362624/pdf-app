@@ -111,12 +111,12 @@ app.post('/create-pdf', async (req, res) => {
     }
     
     res.send(Promise.resolve())
-    
+  }) 
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
   res.setHeader('Access-Control-Allow-Headers', '*')
   res.setHeader('Access-Control-Allow-Credentials', true)
-  })
+  
   .catch((error) => {
     console.log(`error in creating: ${error}`)
   
@@ -131,7 +131,7 @@ app.get('/fetch-pdf', async (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', '*')
   res.setHeader('Access-Control-Allow-Credentials', true)
   .catch ((error) =>
-    console.log(`error: ${error}`))
+    console.log('error:' +error))
 })
 
 app.listen(process.env.PORT || 3001, () => {
