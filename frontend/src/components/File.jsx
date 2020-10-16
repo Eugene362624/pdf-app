@@ -73,6 +73,7 @@ const File = (props) => {
         'Accept': 'application/pdf'
     }}))
     .then((res) => {
+      console.log(res)
       const pdfBlob = new Blob([res.data], {type: 'application/pdf' })
       saveAs(pdfBlob, 'newPdf.pdf')
     })
