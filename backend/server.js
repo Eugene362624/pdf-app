@@ -126,7 +126,7 @@ app.post('/create-pdf', async (req, res) => {
 app.get('/fetch-pdf', (req, res) => {
   res.sendFile(`${__dirname}/${fileName}.pdf`)
   .catch((error) => {
-    console.log(error);
+    console.log(`error: ${error}`);
 })
 })
 
