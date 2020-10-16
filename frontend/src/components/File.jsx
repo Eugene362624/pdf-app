@@ -67,8 +67,11 @@ const File = (props) => {
         timestamp: `${currentDate}`
     }, {headers:{"Content-Type" : "application/json", "Access-Control-Allow-Origin": "*"}})
     .then(() => axios.get('https://medvedevs-pdf-app.herokuapp.com/fetch-pdf', 
-    {responseType: 'blob'}, 
-    {headers:{"Content-Type" : "application/json", "Access-Control-Allow-Origin": "*"}}))
+    {
+      responseType: 'arraybuffer',
+      headers: {
+        'Accept': 'application/pdf'
+    }}))
     .then((res) => {
       const pdfBlob = new Blob([res.data], {type: 'application/pdf' })
       saveAs(pdfBlob, 'newPdf.pdf')
