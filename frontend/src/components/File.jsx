@@ -67,6 +67,7 @@ const File = (props) => {
         model: `${model.length > 0 ? model : file.model}`,
         timestamp: `${currentDate}`
     }, {headers:{"Content-Type" : "application/json", "Access-Control-Allow-Origin": "*"}})
+    .then(() => console.log(2))
     .then(() => axios.get('https://medvedevs-pdf-app.herokuapp.com/fetch-pdf', 
     {
       headers: {
