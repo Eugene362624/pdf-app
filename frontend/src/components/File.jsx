@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import {saveAs} from 'file-saver'
+import FileSaver from 'file-saver'
 
 const File = (props) => {
     const [file, setFile] = useState({})
@@ -53,25 +53,39 @@ const File = (props) => {
     })
   }
 
-  const createAndDownloadPdf = () => {
-    axios.post('/create-pdf', {
-      name: `${name.length > 0 ? name : file.name}`,
-      surname: `${surname.length > 0 ? surname : file.surname}`,
-      age: `${age.length > 0 ? age : file.age }`,
-      color: `${color.length > 0 ? color : file.color}`,
-      dogName: `${dogName.length > 0 ? dogName : file.dogName}`,
-      momName: `${momName.length > 0 ? momName : file.momName}`,
-      dadName: `${dadName.length > 0 ? dadName : file.dadName}`,
-      group: `${group.length > 0 ? group : file.group}`,
-      model: `${model.length > 0 ? model : file.model}`,
-      timestamp: `${currentDate}`
-  })
-      .then(() => axios.get('fetch-pdf', { responseType: 'blob' }))
-      .then((res) => {
-        const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+    const createAndDownloadPdf = async () => {
+      console.log(1)
+       await axios.post('https://medvedevs-pdf-app.herokuapp.com/create-pdf', {
+        name: `${name.length > 0 ? name : file.name}`,
+        surname: `${surname.length > 0 ? surname : file.surname}`,
+        age: `${age.length > 0 ? age : file.age }`,
+        color: `${color.length > 0 ? color : file.color}`,
+        dogName: `${dogName.length > 0 ? dogName : file.dogName}`,
+        momName: `${momName.length > 0 ? momName : file.momName}`,
+        dadName: `${dadName.length > 0 ? dadName : file.dadName}`,
+        group: `${group.length > 0 ? group : file.group}`,
+        model: `${model.length > 0 ? model : file.model}`,
+        timestamp: `${currentDate}`
+    }, {headers:{"Content-Type" : "application/json", "Access-Control-Allow-Origin": "*"}})
+    .then(() => console.log(2))
+    .then(() => axios.get('https://medvedevs-pdf-app.herokuapp.com/fetch-pdf', 
+    {
+      headers: {
+        'Accept': 'application/pdf',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+        'Access-Control-Allow-Headers': '*',
 
-        saveAs(pdfBlob, 'newPdf.pdf');
-      })
+    }})
+    )
+    .then((res) => {
+      console.log(3)
+      console.log(res)
+      const pdfBlob = new Blob([res.data], {type: 'application/pdf' })
+      FileSaver.saveAs(pdfBlob, 'newPdf.pdf')
+    })
+    .catch(error => {
+      console.log(error)})
   }
 
     const CreateFile = () => {
