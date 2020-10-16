@@ -20,7 +20,7 @@ mongoose.connect('mongodb+srv://Eugene:123123123@cluster0.w9fec.gcp.mongodb.net/
 let __dirname = path.resolve()
 
 app.use(express.json())
-app.use(cors())
+// app.use(cors())
 app.use(parser.urlencoded({extended: true}))
 app.use(parser.json())
 app.use(function (req, res, next) {
