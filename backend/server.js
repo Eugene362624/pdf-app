@@ -44,7 +44,6 @@ app.get('/files/sync',async (req, res) => {
             res.status(200).send(data)
         }
     })
-    console.log(res)
 })
 
 app.get('/files/:id', async (req, res) => {
@@ -109,6 +108,7 @@ app.post('/create-pdf', async (req, res) => {
   await pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
     if (e) {
       res.send(Promise.reject())
+      return
     }
     
     res.send(Promise.resolve())
