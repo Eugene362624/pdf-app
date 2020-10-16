@@ -72,7 +72,7 @@ const File = (props) => {
       saveAs(pdfBlob, 'newPdf.pdf')
     })
     .catch(error => {
-      console.log(error)})
+      console.log(error.data)})
   }
 
     const CreateFile = () => {
