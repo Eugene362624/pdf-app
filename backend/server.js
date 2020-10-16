@@ -102,10 +102,10 @@ app.post('/files/new', (req, res) => {
 })
 
 let fileName 
-app.post('/create-pdf',  (req, res) => {
+app.post('/create-pdf', async (req, res) => {
   fileName = req.body.name
   console.log(req.body.name)
-  pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
+  await pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
     if (e) {
       res.send(Promise.reject())
     }
