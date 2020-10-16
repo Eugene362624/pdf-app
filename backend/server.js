@@ -102,15 +102,11 @@ app.post('/files/new', (req, res) => {
 })
 
 let fileName 
-app.post('/create-pdf', async (req, res) => {
+app.post('/create-pdf',  (req, res) => {
   fileName = req.body.name
   console.log(req.body.name)
-  await pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
-    if (e) {
-      res.send(Promise.reject())
-    }
-    
-    res.send(Promise.resolve())
+  pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (err, res) => {
+    console.log(res.filename)
   }) 
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
