@@ -20,7 +20,7 @@ mongoose.connect('mongodb+srv://Eugene:123123123@cluster0.w9fec.gcp.mongodb.net/
 let __dirname = path.resolve()
 
 app.use(express.json())
-// app.use(cors())
+app.use(cors())
 app.use(parser.urlencoded({extended: true}))
 app.use(parser.json())
 app.use((req, res, next) => {
@@ -103,22 +103,30 @@ app.post('/files/new', (req, res) => {
 })
 
 let fileName 
-app.post('/create-pdf', (req, res) => {
+app.post('/create-pdf', async (req, res) => {
   fileName = req.body.name
   console.log(req.body.name)
-  pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
+  await pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
     if (e) {
       res.send(Promise.reject())
     }
     
     res.send(Promise.resolve())
+    
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+  res.setHeader('Access-Control-Allow-Headers', '*')
+  res.setHeader('Access-Control-Allow-Credentials', true)
   })
+  .catch((error) => {
+    console.log(error);
+})
 })
 
 app.get('/fetch-pdf', (req, res) => {
   res.sendFile(`${__dirname}/${fileName}.pdf`)
   .catch((error) => {
-    console.warn('Not good man :(');
+    console.log(error);
 })
 })
 
