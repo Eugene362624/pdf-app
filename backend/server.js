@@ -108,7 +108,6 @@ app.post('/create-pdf', async (req, res) => {
   await pdf.create(pdfTemplate(req.body), {}).toFile(`${req.body.name}.pdf`, (e) => {
     if (e) {
       res.send(Promise.reject())
-      return
     }
     
     res.send(Promise.resolve())
@@ -119,7 +118,7 @@ app.post('/create-pdf', async (req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', true)
   })
   .catch((error) => {
-    console.log(error);
+    console.log(`error in creating: ${error}`);
 })
 })
 
