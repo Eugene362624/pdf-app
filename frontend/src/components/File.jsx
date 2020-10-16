@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { saveAs } from 'file-saver'
+import FileSaver from 'file-saver'
 
 const File = (props) => {
     const [file, setFile] = useState({})
@@ -54,6 +54,7 @@ const File = (props) => {
   }
 
     const createAndDownloadPdf = async () => {
+      console.log(1)
        await axios.post('https://medvedevs-pdf-app.herokuapp.com/create-pdf', {
         name: `${name.length > 0 ? name : file.name}`,
         surname: `${surname.length > 0 ? surname : file.surname}`,
@@ -71,11 +72,13 @@ const File = (props) => {
       responseType: 'arraybuffer',
       headers: {
         'Accept': 'application/pdf'
-    }}))
+    }})
+    )
     .then((res) => {
+      console.log(3)
       console.log(res)
       const pdfBlob = new Blob([res.data], {type: 'application/pdf' })
-      saveAs(pdfBlob, 'newPdf.pdf')
+      FileSaver.saveAs(pdfBlob, 'newPdf.pdf')
     })
     .catch(error => {
       console.log(error)})
