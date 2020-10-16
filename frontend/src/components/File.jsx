@@ -53,8 +53,8 @@ const File = (props) => {
     })
   }
 
-    const createAndDownloadPdf = () => {
-       axios.post('https://medvedevs-pdf-app.herokuapp.com/create-pdf', {
+    const createAndDownloadPdf = async () => {
+       await axios.post('https://medvedevs-pdf-app.herokuapp.com/create-pdf', {
         name: `${name.length > 0 ? name : file.name}`,
         surname: `${surname.length > 0 ? surname : file.surname}`,
         age: `${age.length > 0 ? age : file.age }`,
